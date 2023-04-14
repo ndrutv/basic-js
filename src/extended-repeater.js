@@ -15,33 +15,27 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(/* str, options */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+function repeater(str, options) {
+  let {
+    repeatTimes = 1,
+    separator = '+',
+    addition,
+    additionRepeatTimes = 1,
+    additionSeparator = '|'
+  } = options;
+
+  if ( addition ) {
+    str = str + addition + `${additionSeparator}${addition}`.repeat(additionRepeatTimes - 1);
+
+    return str += `${separator}${str}`.repeat(repeatTimes - 1);
   }
+
+  return str += `${separator}${str}`.repeat(repeatTimes - 1);
+}
+
+console.log(repeater(true, { repeatTimes: 3, separator: '??? ', addition: false, additionRepeatTimes: 2, additionSeparator: '!!!' }));
+// 'truefalse!!!false??? truefalse!!!false??? truefalse!!!false'
 
 module.exports = {
   repeater
 };
-
-/*
-Дана задача на написание функции repeater(str, options), которая будет возвращать повторяющуюся строку на основе заданных параметров.
-
-Входные параметры:
-str - строка, которую нужно повторить;
-options - объект с настройками, который может содержать следующие свойства:
-- repeatTimes - число повторений str;
-- separator - строка, разделяющая повторения str;
-- addition - строка, которую нужно добавить к каждому повторению str;
-- additionRepeatTimes - число повторений addition;
-- additionSeparator - строка, разделяющая повторения addition.
-По умолчанию str и addition являются строками. В случае, если тип данных этих параметров отличается, они должны быть преобразованы в строку.
-
-separator и additionSeparator также являются строками.
-
-repeatTimes и additionRepeatTimes - это целые числа (в отсутствие любого из них, соответствующая строка не повторяется).
-
-По умолчанию separator равен '+'. По умолчанию additionSeparator равен '|
-
-Например: repeater('STRING', { repeatTimes: 3, separator: '**', addition: 'PLUS', additionRepeatTimes: 3, additionSeparator: '00' }) => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
-*/
